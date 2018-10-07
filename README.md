@@ -80,6 +80,8 @@ netcon@conwlt:~/workspace$ sudo airodump-ng wlp8s0mon
 
 扫描列表会不停刷新，确定最终目标后按 Ctrl-C 退出。
 
+这里仅仅是演示，所以列表只保留了一条结果。
+
 ### 5. 使用参数过滤扫描列表，确定扫描目标
 
 使用命令：`airodump-ng -w <扫描结果保存的文件名> -c <无线网络信道> --bssid <目标无线 AP 的硬件地址> <处于监听模式的网卡名称>`
