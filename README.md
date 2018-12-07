@@ -132,7 +132,7 @@ netcon@conwlt:~$ sudo aireplay-ng -0 0 -a 22:47:DA:62:2A:F0 -c AC:BC:32:96:31:8D
 使用命令：`aircrack-ng -w 密码字典 <包含握手包的 cap 文件>`
 
 ~~~
-netcon@conwlt:~/workspace$ aircrack-ng -w wpa-dictionary/huanying-0.txt android-01.cap 
+netcon@conwlt:~/workspace$ aircrack-ng -w wpa-dictionary/common.txt android-01.cap 
 Opening android-01.cap
 Read 675 packets.
 
@@ -237,7 +237,7 @@ brew install aircrack-ng
 ### 5. 使用 aircrack-ng 执行破解
 
 ~~~shell
-aircrack-ng -w huanying-0.txt /tmp/airportSniff0RjCAO.cap
+aircrack-ng -w common.txt /tmp/airportSniff0RjCAO.cap
 ~~~
 
 ### Windows
