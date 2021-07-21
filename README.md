@@ -1,20 +1,24 @@
 # wpa-dictionary
 
-用于 Wi-Fi 密码破解。
+Used for Wi-Fi password cracking | 用于 Wi-Fi 密码破解。
 
-### Linux 篇（推荐）
+### Linux 篇（Recommended | 推荐）
 
-### 1. 安装 aircrack-ng
+The Kali distribution already has everything installed | Kali 发行版已经安装了所有东西
 
-* 使用相应包管理工具安装，例如 Debian/Ubuntu 使用 apt 安装：
+Full english instructions at: https://aircrack-ng.org/doku.php?id=getting_started
+
+### 1. Install | 安装 aircrack-ng
+
+* On Debian/Ubuntu using apt to install: | 使用相应包管理工具安装，例如 Debian/Ubuntu 使用 apt 安装：
 
 ~~~shell
 sudo apt install aircrack-ng
 ~~~
 
-### 2. 查看可用的无线网卡
+### 2. View available wireless network cards | 查看可用的无线网卡
 
-使用命令：`airmon-ng`
+Use the command | 使用命令：`airmon-ng`
 
 ~~~
 netcon@conwlt:~/workspace$ sudo airmon-ng
@@ -23,12 +27,14 @@ PHY	Interface	Driver		Chipset
 
 phy0	wlp8s0		iwlwifi		Intel Corporation Centrino Wireless-N 2230 (rev c4)
 ~~~
+ 
+The available wifi card is `wlp8s0` | 根据以上输出，可用的无线网卡为 `wlp8s0`。
 
-根据以上输出，可用的无线网卡为 `wlp8s0`。
-
-### 3. 指定无线网卡开启监听模式。
+### 3. Specify the wireless network card to turn on the monitor mode | 指定无线网卡开启监听模式。
 
 使用命令：`airmon-ng start <网卡名称>`
+
+Use the command `airmon-ng start wlp8s0`
 
 ~~~
 netcon@conwlt:~/workspace$ sudo airmon-ng start wlp8s0
@@ -41,13 +47,17 @@ phy0	wlp8s0		iwlwifi		Intel Corporation Centrino Wireless-N 2230 (rev c4)
 		(mac80211 station mode vif disabled for [phy0]wlp8s0)
 ~~~
 
-根据以上输出，已经把 wlp8s0 这块无线网卡开启监听模式，开启后名字是 `wlp8s0mon`。
+Now wlp8s0 is available for monitoring as `wlp8s0mon` | 根据以上输出，已经把 wlp8s0 这块无线网卡开启监听模式，开启后名字是 `wlp8s0mon`。
 
 开启监听模式后无线网卡无法继续连接 wifi，使用后需要关闭监听模式。
 
-### 4. 扫描附近的无线网络
+With the monitor mode active the card can not be used to connect to any wifi, you have to stop it later to use as a normal card
+
+### 4. Scan for nearby wireless networks | 扫描附近的无线网络
 
 使用命令：`airodump-ng <处于监听模式的网卡名称>`
+
+Use the command `airodump-ng wlp8s0mon`
 
 ~~~
 netcon@conwlt:~/workspace$ sudo airodump-ng wlp8s0mon
